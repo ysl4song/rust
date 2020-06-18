@@ -8,4 +8,4 @@ edition = "2018"
 
 [dependencies]
 libc = "0.2"
-winapi = { version = "0.3.8", features = ["setupapi", "hidclass", "handleapi", "hidsdi"] }
+winapi = { version = "0.3.8", features = ["setupapi", "hidclass", "handleapi", "hidsdi", "fileapi"] }
