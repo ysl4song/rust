@@ -10,6 +10,13 @@ use std::os::windows::ffi::OsStringExt;
 use std::io::Error;
 
 
+unsafe fn u16_ptr_to_string(ptr: *const u16) -> OsString {
+    let len = (0..).take_while(|&i| *ptr.offset(i) != 0).count();
+    let slice = std::slice::from_raw_parts(ptr, len);
+
+    OsString::from_wide(slice)
+}
+
 fn main() {
     
     unsafe {
@@ -67,7 +74,7 @@ fn main() {
             libc::memset(_p_buffer as *mut core::ffi::c_void, 0, _buffer_size);
             (*_p_buffer).cbSize = _buffer_size as u32;
 
-            println!("(*_p_buffer).cbSize = {} \n", (*_p_buffer).cbSize);
+            //println!("(*_p_buffer).cbSize = {} \n", (*_p_buffer));
 
             let mut devinfo_data : SP_DEVINFO_DATA = mem::zeroed();
             devinfo_data.cbSize = mem::size_of::<SP_DEVINFO_DATA>() as u32;
@@ -87,12 +94,11 @@ fn main() {
             }
 
             let device_path = (*_p_buffer).DevicePath;
-
+            let device_path_ptr = device_path.to_vec().as_ptr();
             //let face_name_ptr = &device_path as &[u16];
-            let path = OsString::from_wide(&device_path[0..device_path.len()]);
-            //let os_str = path.as_os_str();
-            println!("device path: {} \n", path.to_str().unwrap());           
-
+            //let path = OsString::from_wide(&device_path);
+            let path = u16_ptr_to_string(device_path_ptr);
+            println!("device path: {:#?} \n", path);
 
             index = index + 1;
         }
