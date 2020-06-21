@@ -55,7 +55,7 @@ pub fn get_manufacturer_string(handle: HANDLE) {
         println!("ERROR : HidD_GetManufacturerString failed. ({}) \n", Error::last_os_error());
     }
     else {
-        unsafe { println!("manufacture_string  = {} \n", common::u16_ptr_to_string(buffer.as_ptr())) };
+        unsafe { println!("manufacture_string = {} \n", common::u16_ptr_to_string(buffer.as_ptr())) };
     }
 }
 
@@ -66,6 +66,6 @@ pub fn get_serial_number_string(handle: HANDLE) {
         println!("ERROR : HidD_GetSerialNumberString failed. ({}) \n", Error::last_os_error());
     }
     else {
-        unsafe { println!("serial_number  = {} \n", common::u16_ptr_to_string(buffer.as_ptr())) };
+        unsafe { println!("serial_number = {} \n", common::u16_ptr_to_string(buffer.as_ptr())) };
     }
 }
