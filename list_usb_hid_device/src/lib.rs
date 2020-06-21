@@ -24,6 +24,7 @@ pub fn list_device() {
         return;
     }
 
+    // enumerate device
     loop {
         let mut device_interface_data = match setupapi::get_device_interface(device_info_set, index) {
                 Some(device_interface_data) => device_interface_data,
@@ -40,7 +41,6 @@ pub fn list_device() {
             let device_path = (*device_interface_detail_data).DevicePath.as_ptr();
 
             let pdo_name = setupapi::get_pdo_name(device_info_set, &mut devinfo_data.assume_init());
-
             
             let handle = hid::open_device(device_path);
 

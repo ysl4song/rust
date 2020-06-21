@@ -39,7 +39,6 @@ pub fn get_device_interface(
     unsafe {
         (*device_interface_data.as_mut_ptr()).cbSize = size_of::<SP_DEVICE_INTERFACE_DATA>() as u32;
 
-        // enumerate device
         let result = SetupDiEnumDeviceInterfaces(
             device_info_set,
             null_mut(),
