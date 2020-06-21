@@ -83,9 +83,6 @@ pub fn get_device_interface_detail_data(
         ptr_device_interface_detail_data = libc::malloc(required_size as usize) as PSP_DEVICE_INTERFACE_DETAIL_DATA_W;
         (*ptr_device_interface_detail_data).cbSize = size_of::<SP_DEVICE_INTERFACE_DETAIL_DATA_W>() as u32;
 
-        // let mut devinfo_data = MaybeUninit::<SP_DEVINFO_DATA>::zeroed();
-        // (*devinfo_data.as_mut_ptr()).cbSize = size_of::<SP_DEVINFO_DATA>() as u32;
-
         // get the device path for device open
         let result = SetupDiGetDeviceInterfaceDetailW(
             device_info_set,
